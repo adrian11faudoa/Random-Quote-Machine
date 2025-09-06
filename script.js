@@ -1,11 +1,12 @@
-/* eslint-disable max-len */
-// eslint-disable-next-line no-unused-vars
+
 const projectName = 'random-quote-machine';
 let quotesData;
 
 /*
   Code by Gabriel Nunes
   Modified by Todd Chaffee to use Camper gist for JSON Quote data.
+  Modified by Adrian Faudoa to use the newer version of Twitter (rebranded to X) to make post 
+    and open the call in a new tag, with the corresponding security & performance protection
 */
 
 var colors = [
@@ -53,11 +54,13 @@ function getQuote() {
   currentQuote = randomQuote.quote;
   currentAuthor = randomQuote.author;
 
-  $('#tweet-quote').attr(
-    'href',
-    'https://twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text=' +
-      encodeURIComponent('"' + currentQuote + '" ' + currentAuthor)
-  );
+  $('#tweet-quote').attr({
+  href:
+    'https://x.com/compose/post?hashtags=quotes&related=freecodecamp&text=' +
+    encodeURIComponent('"' + currentQuote + '" ' + currentAuthor),
+  target: '_blank',
+  rel: 'noopener noreferrer'
+});
 
   $('#tumblr-quote').attr(
     'href',
