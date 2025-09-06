@@ -27,8 +27,14 @@ Subject:
 Try using the target="_blank" or target="_top" attribute on the #tweet-quote element if your tweet won't load. target="_top" will replace the current tab so make sure your work is saved.
 
 
+Put this <script> tag into the body of your index.html file: 
+Example Code:
+```
+    <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+```
 
-
-
-
+Proyect URL in Github:
+```
+    https://adrian11faudoa.github.io/Random-Quote-Machine/
+```
 
