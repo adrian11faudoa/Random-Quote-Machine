@@ -54,9 +54,10 @@ function getQuote() {
   currentQuote = randomQuote.quote;
   currentAuthor = randomQuote.author;
 
+    //new version: x.com/compose/post
   $('#tweet-quote').attr({
   href:
-    'https://x.com/compose/post?hashtags=quotes&related=freecodecamp&text=' +
+    'https://twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text=' +
     encodeURIComponent('"' + currentQuote + '" ' + currentAuthor),
   target: '_blank',
   rel: 'noopener noreferrer'
