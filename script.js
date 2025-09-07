@@ -28,16 +28,14 @@ var currentQuote = '',
 
 function getQuotes() {
   return $.ajax({
-    headers: {
-      Accept: 'application/json'
+    url: 'https://gist.githubusercontent.com/adrian11faudoa/4d2495b406e486319d5371ad818c4328/raw/52ae67ce0c3a3e8e99a1c9a86e91a354f7c47273/poems.json',
+    dataType: 'json', // ensures it returns an object
+    success: function (data) {
+      quotesData = data;
+      console.log('quotesData loaded:', quotesData);
     },
-    url: 'https://gist.githubusercontent.com/camperbot/5a022b72e96c4c9585c32bf6a75f62d9/raw/e3c6895ce42069f0ee7e991229064f167fe8ccdc/quotes.json',
-    success: function (jsonQuotes) {
-      if (typeof jsonQuotes === 'string') {
-        quotesData = JSON.parse(jsonQuotes);
-        console.log('quotesData');
-        console.log(quotesData);
-      }
+    error: function (err) {
+      console.error('Failed to load quotes:', err);
     }
   });
 }
@@ -51,17 +49,19 @@ function getRandomQuote() {
 function getQuote() {
   let randomQuote = getRandomQuote();
 
-  currentQuote = randomQuote.quote;
+  currentQuote = randomQuote.text;
   currentAuthor = randomQuote.author;
+  currentBook = randomQuote.book;
+  currentTitle = randomQuote.title;
 
     //new version: x.com/compose/post
   $('#tweet-quote').attr({
   href:
     'https://twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text=' +
-    encodeURIComponent('"' + currentQuote + '" ' + currentAuthor),
+    encodeURIComponent(currentBook + ' : ' + currentTitle + '. -' + currentAuthor),
   target: '_blank',
   rel: 'noopener noreferrer'
-});
+  });
 
   $('#tumblr-quote').attr(
     'href',
@@ -74,12 +74,16 @@ function getQuote() {
 
   $('.quote-text').animate({ opacity: 0 }, 500, function () {
     $(this).animate({ opacity: 1 }, 500);
-    $('#text').text(randomQuote.quote);
+    $('#title').text(currentTitle);
+    $('#text').html(randomQuote.text.replace(/\n/g, '<br>'));
+    //$('#text').text(randomQuote.text);
   });
 
   $('.quote-author').animate({ opacity: 0 }, 500, function () {
     $(this).animate({ opacity: 1 }, 500);
-    $('#author').html(randomQuote.author);
+    $('#book').html(currentBook);
+    $('#author').html(currentAuthor);
+
   });
 
   var color = Math.floor(Math.random() * colors.length);
